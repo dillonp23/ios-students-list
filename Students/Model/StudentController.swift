@@ -14,4 +14,29 @@ class StudentController {
         guard let filePath = Bundle.main.path(forResource: "students", ofType: "json") else { return nil }
         return URL(fileURLWithPath: filePath)
     }
+    
+    func loadFromPersistentStore(completion: @escaping ([Student]?, Error?) -> Void) { // (passing) -> (return)...() -> void is typical if expecting nothing back.
+        
+        let bgQueue = DispatchQueue(label: "studentQueue", attributes: .concurrent) // concurrent = this thread can do multiple things at same time is OS allows
+        
+        bgQueue.async {
+            let fm = FileManager.default
+            guard let url = self.persistentFileURL, fm.fileExists(atPath: url.path) else {
+                completion(nil, nil)
+                return }
+            
+            do {
+                let data = try Data.init(contentsOf: url)
+                let decoder = JSONDecoder()
+                let students = try decoder.decode([Student].self, from: data)
+                completion(students, nil)
+            } catch {
+                print("Error loading student data: \(error)")
+                completion(nil, error)
+            }
+            
+        }
+        
+        
+    }
 }

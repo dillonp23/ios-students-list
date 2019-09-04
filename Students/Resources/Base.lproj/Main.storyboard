@@ -53,7 +53,7 @@
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="gnH-bM-vHR">
                                                 <rect key="frame" x="87" y="0.0" width="267" height="29"/>
                                                 <segments>
-                                                    <segment title="None"/>
+                                                    <segment title="All"/>
                                                     <segment title="iOS"/>
                                                     <segment title="Web"/>
                                                     <segment title="UX"/>
